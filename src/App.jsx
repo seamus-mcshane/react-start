@@ -5,6 +5,15 @@ import { TodoForm } from "./TodoForm"
 export default function App() {
   const [todos, setTodos] = useState([])
 
+  function addTodo(title){
+    setTodos( currentTodos => {
+      return [
+        ...currentTodos, 
+        { id: crypto.randomUUID(), title, completed: false},
+      ]
+    })
+  }
+
   function toggleTodo(id, completed){
     setTodos(currentTodos => {
       return currentTodos.map(todo => {
@@ -25,7 +34,7 @@ export default function App() {
 
   return (
     <>
-      <TodoForm />
+      <TodoForm onSubmit={addTodo} />
       <h1 className="header">Todo List</h1>
       <ul className="list">
         {todos.length === 0 && "No Todos"}
